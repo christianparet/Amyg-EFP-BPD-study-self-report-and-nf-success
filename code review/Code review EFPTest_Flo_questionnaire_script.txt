@@ -1,0 +1,234 @@
+#####################################################
+Code review von flo // 02.11.22
+
+DISCLAIMER: Ich hab jetzt einfach mal alles rausgeschrieben, was mir aufgefallen ist. Ich bin allerdings selbst noch Neuling in R, also kanns sein, dass viele Dinge obsolet sind, die ich hier in der Review anmerke. 
+#####################################################
+
+1_construct_dataframe.R
+
+	line 36: entspricht keiner condition für completer, da in source datei "Probanden_ID" und "Condition" teilweise vorhanden ist, aber keine  questionaire Daten enthält
+		-> EFP_data mit 30 subs wird am ende des scripts als source datei für Analyse exportiert, wobei EFP42 keine prä-Daten enthält und EFP04, EFP30 und EFP46 keine post-Daten; die Spalte "finished" in der descriptives excel Datei zählt wiederum 28 Leute; welcher Wert definiert ein completer?
+	
+	line 41-47: ___$___.x und ___$___.y sind bereits NULL bevor dieser Code ausgeführt wird (relevanz?)
+
+CP: gelöst
+
+
+2_descriptives_pre.R
+
+	line 46: Dataframe für IMI_complete enthält auch die variable "Bulimia Nervosa F50.2", weil substring "imi" drin vorkommt :D // argument "ignore.case = FALSE" should fix it
+			-> "Bulimia Nervosa F50.2" also gets carried over when object, "IMIrecoded" is created // CAVE bei rechenoperationen: "Bulimia Nervosa F50.2" enthält numeric values
+		
+CP: gelöst
+	
+	line 89-111: Item pre_ALS_43 & post_ALS_43 fehlt bei der Berechnung irgendeiner subscale. (weiss nicht welche; hab das inventar nicht). Alle anderen Items sind irgendwo vertreten.
+
+CP: todo, Malte zugewiesen
+	
+	line 114 & 119: rowSums werden gebildet mit "contains('pre_ALS'))", nachdem subscales gebildet wurden. Diese werden da mit reingerechnet, also werden alle Items doppelt addiert.
+
+CP: gelöst
+
+	line 146: hier wird das subset "TAS_withoutdaydream" aus "TAScomplete" gebildet und ab dieser Stelle wird "TASrecoded" und auch rowSums für "pre_TAS_Total" bzw. "post_TAS_Total" nur aus diesem ursprünglichen subset "TAS_withoutdaydream" gebildet. Das komplementäre Set zu "TAS_withoutdaydream" wird nicht mehr weiter verwendet. ist das intentional?
+
+CP: das sieht für mich korrekt aus
+
+	line 202-212: (siehe ALS) Item pre_TAS_26 & post_TAS_26 fehlt bei der Berechung irgendeiner subscale. Alle anderen Items sind vertreten. 
+
+CP: todo, Malte zugewiesen
+	
+	line 216, 221: (siehe ALS) rowSums werden gebildet mit "contains('pre_TAS')". Alle subscales werden mit reingerechnet und folglich Items wieder doppelt gezählt.
+
+CP: gelöst
+
+	line 233-243: code identisch mit line 248-258 (womöglich versehentlich was ersetzt worden)
+
+CP: auskommentiert; nach code review löschen
+
+	line 261, 262: irrelevant
+
+CP: nicht adressiert	
+
+	line 265: IMIrecoded$IMI_02 existiert nicht. ->IMIrecoded$pre_IMI_02 müsste es heißen. (keine Fehlermeldung weil value von IMIrecoded$IMI_02 ist NULL)
+
+CP: gelöst
+
+	line 269-316: Alle columns, die auf "r" enden, existieren nicht. (keine Fehlermeldung weil value ist NULL; die Items werden einfach ignoriert)
+			-> hier wurde cbind() verwendet, anstelle von subset(df,select=(...)) wie bisher im script. subset() hätte error gegeben; cbind nicht
+			-> Werte für subscaless falsch
+
+CP: gelöst
+
+	line 265, 272, 278, 283, 287: IMI subscales mit präfix "pre" versehen für übersichtlichkeit, da auch post_IMI_subscalename existiert. CAVE: danach find & replace für nachfolgenden code
+
+CP: gelöst
+
+	line 387: kein normality test gemacht vor t-test
+
+CP: nicht adressiert
+
+	line 389: equal variance wird angenommen, wobei zuvor nicht geprüft wurde
+
+CP: nicht adressiert
+
+	line 405: im Kommentar steht "exclude non-completers", aber es folgt keine Line, die das tut. (siehe 1_construct_dataframe: Es werden Probanden aus dem descriptives excel file exportiert, die in der Spalte "finished" 0 drin stehen haben und sind auch an dieser Stelle des Scripts immernoch drin.  
+
+CP: Kommentar entfernt. non-completers werden bereits beim import entfernt.
+-> Fortfahren in Zeile 407!
+
+	line 413: summary besitzt Spalte mit p-value (equal variances assumed) --> line 416, 417 irrelevant; (alternativ: summary(..., test = FALSE) entfernt diese Spalte); additionaly: summary(..., text = TRUE), dann sind diese seltsam aussehenden Strings auf der linken seite der Tabelle weg
+	
+CP: geklärt, ttest behalten (für T-Value)
+
+	line 415, 416: kein normality test und kein levene test gemacht
+	
+CP: nicht adressiert
+
+	line 704: digits=4; bisher immer auf 3 Stellen gerundet bei "all completers"
+	
+CP: geklärt, digits=2
+
+	line 725: Zahlen falsch; laut vorherigen Berechnungen müsste 12, statt 11 da stehen (siehe object "affectivekg")
+
+CP: geändert
+
+	line 729: CAVE: frequencies sind zu klein für chi-squared test
+	
+	line 733: Zahlen falsch; laut vorherigen Berechnungen: c(7, 7) (siehe obects "eatingkg" bzw. "eatingeg")
+
+	line 737: Zahlen falsch; laut vorherigen Berechnungen: c(10, 10) (siehe objects "ptbskg" bzw. "ptbseg")
+
+	line 741: Zahlen falsch; laut vorherigen Berechnungen: c(10, 10) (siehe objects "otherkg" bzw. "othereg") (bei gleiche gewichtung bei 1 komorbidität bzw. >1 komorbiditäten)
+
+	line 745: Zahlen falsch; laut vorherigen Berechnungen: c(6, 4) (siehe objects "ssrikg" bzw. "ssrieg")
+	
+	line 749, 753, 757, 761: CAVE: frequencies zu klein für chi-squared test
+
+	line 757: Zahlen falsch; laut vorherigen Berechnungen: c(3, 2) (siehe objects "tetrakg" bzw. "tetrageg")
+
+	line 765: Zahlen falsch; laut vorherigen Berechnungen: c(5, 5) (siehe objects "aapkg" bzw. "aapeg")
+
+	line 769: Zahlen falsch; laut vorherigen Berechnungen: c(6, 3) (siehe objects "aapkg" bzw. "aapeg")
+
+CP: alles oben adressiert
+
+3_comparison_pre_to_post.R
+
+	bis line 222: code ist identisch mit 2_decriptives_pre (dort line 224); also alles, was in der code review oben erwähnt wurde, trifft auch hier zu
+	
+CP: gelöst
+
+	line 232: object IMIrecoded existiert nicht (Es würde existieren, wenn man zuvor das 2_descriptives_pre.R script ausführt, da es dort generiert wird; allerdings gehe ich davon aus dass 3_comparison_pre_to_post.R ein alleinstehendens script sein soll, da am Anfang des scripts packages geladen werden; working directory gesetzt wird etc.)
+			-> Code läuft ab dieser Stelle nicht weiter, also hab ich line 46, 47, 233-260, 265-324 von 2_descriptives_pre.R ausgeführt 
+			
+CP: IMI soll nicht mit ausgewertet werden, deshalb entfernt
+
+	line 335-343: lines already exist at line 248-253, 258
+	
+CP: auskommentiert, in clean version löschen
+
+	line 346: Interaction plot is not drawn because there are missing values in the data frame
+	
+CP: auskommentiert in clean version löschen
+
+	line 369: mutate(time=factor(time)) ist irrelevant
+	
+CP: auskommentiert in clean version löschen
+
+	line 374: Box's M-test funktioniert nicht, weil ALS$group nicht numerisch ist; 
+
+CP: CAVE: ersetzt durch numerische Variable group_id, funktioniert trotzdem nicht
+
+	line 382: "return" argument does nothing
+	
+CP: entfernt
+
+	line 397: line already exist at line 301-306, 311
+
+CP: aufgeräumt
+
+	line 406: Interaction plot is not drawn because there are missing values in the data frame
+	
+CP: entfernt
+
+	line 440: Box's M-test funktioniert nicht, weil TAS$group nicht numerisch ist
+	
+CP: CAVE: ggf. analog zu ALS lösen
+
+	line 444: "return" argument does nothing
+	
+CP: gelöst	
+
+	line 461-490: subset(TAS,Probanden_ID!="EFP34") wäre weniger anfällig für übertragungsfehler als das aufzählen jedes einzelnen
+	
+CP: gelöst
+
+	line 491: irrelvant
+
+CP: unklar, was gemeint ist
+
+	line 500: nachdem Outlier entfernt wurden, müssten die ANOVA Voraussetzungen erneut geprüft werden
+	
+CP: nicht adressiert
+
+	line 505: "return" argument does nothing
+	
+CP: entfernt
+
+	line 519-525: lines already exist at line 274-279, 284
+	
+CP: entfernt
+
+	line 528: Interaction plot is not drawn because there are missing values in the data frame
+
+CP: entfernt
+
+	line 572: Box's M-test funktioniert nicht, weil BDI$group nicht numerisch ist
+	
+CP: CAVE: s. oben
+
+	line 575: ANOVA wird gerechnet, obwohl Normality violated (line 553); keine transformation o.Ä.?
+	
+CP: nicht adressiert
+
+	line 580: "return" argument does nothing
+	
+CP: gelöst
+
+	line 592: subset(BDI,Probanden_ID!="EFP37") wäre weniger anfällig für übertragungsfehler als das aufzählen jedes einzelnen
+
+	line 622: irrelevant
+
+	line 631: nachdem Outlier entfern wurden, müssten die ANOVA Voraussetzungen erneut geprüft werden
+			-> BDI_outlier_removed %>% group_by(time,group) %>% shapiro_test(BDIscore) #liefert dann auch nicht-sig. Ergebnisse (anders als in line 551)
+
+	line 636: "return" argument does nothing
+
+	line 651-664: Zu Bayes Factor kann ich nichts sagen; mit dieser Methode bin ich bisher nicht vertraut
+	
+CP: entfernt
+
+	
+
+	
+
+	
+	
+
+	
+
+	
+	
+
+	
+
+	
+
+	
+	
+	
+
+	
+	
+	
+		
