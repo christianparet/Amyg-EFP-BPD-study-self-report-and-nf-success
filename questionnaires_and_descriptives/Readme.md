@@ -30,10 +30,6 @@ R version 4.2.1
 
 Information about software dependencies such as toolboxes and computing environments for R-based analysis scripts is available from session_info output, which has been copy-pasted at the end of the script.
 
-# References
-McGraw, K. O., & Wong, S. P. (1992). A common language effect size statistic. Psychological Bulletin, 111(2), 361–365. https://doi.org/10.1037/0033-2909.111.2.361
-Paret, C., Goldway, N., Zich, C., Keynan, J.N., Hendler, T., Linden, D., Cohen Kadosh, K. (2019). Current progress in real-time functional magnetic resonance-based neurofeedback: Methodological challenges and achievements. NeuroImage 202, 116107. https://doi.org/10.1016/j.neuroimage.2019
-
 # Authors and contact
 Christian Paret, ZI Mannheim, christian.paret[at]zi-mannheim.de
 Malte Zopfs, Malte Zopfs

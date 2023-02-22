@@ -7,7 +7,7 @@ This repository has code for analysis of neurofeedback data, that is, the Amyg-E
 - Code directory with code to aggregate sourcedata and for statistical data analysis
 - Aggregated data directory with tables of subject data
 - Figures directory of graphical outputs
-- Sourcedata directory (unzip before use) with the EEG-neurofeedback logfiles containing Amyg-EFP value (arbitrary scale) and feedback volume intensity (0-1, 0=silent, 1=max. volume) of the training sessions
+- Sourcedata directory (unzip before use) with the EEG-neurofeedback logfiles containing Amyg-EFP value (arbitrary scale) and feedback volume intensity (0-1, 0=min., 1=max. volume) of the training sessions
 
 ## EEG-neurofeedback training data
 Analysis of within-neurofeedback session Amyg-EFP data.
@@ -16,27 +16,25 @@ Analysis of within-neurofeedback session Amyg-EFP data.
 - Graphical display: Figure_EEG_training_data.R produces plots showing mean-subject-timecourses of Amyg-EFP values and feedback values, averaged across session.
 
 # Data dictionary
-Concerns table: aggregated data/Pooleddata_blockwise_task-efpnftraining.txt
-
 Variable	Meaning
 
-SubjectID	subject ID
+SubjectID:	subject ID
 
-SessionID	session number
+SessionID:	session number
 
-BlockID	block number within session
+BlockID:	block number within session
 
-success_index	numerical success measure calculated online by neurofeedback software
+success_index:	numerical success measure calculated online by neurofeedback software
 
-personal_effect_size	standardized mean difference between regulation block and foregoing baseline block (Paret et al., 2019), interpretable according to Cohen's d
+personal_effect_size:	standardized mean difference between regulation block and foregoing baseline block (Paret et al., 2019), interpretable according to Cohen's d
 
-common_language_effect_size	CLES according to McGraw et al (1992)
+common_language_effect_size:	CLES according to McGraw et al (1992)
 
-mean_efp_neurofeedback	mean value from regulation blocks
+mean_efp_neurofeedback:	mean value from regulation blocks
 
-mean_efp_baseline mean value from baseline blocks
+mean_efp_baseline: mean value from baseline blocks
 
-mean_vol_neurofeedback	mean volume of auditory feedback (0-10)
+mean_vol_neurofeedback:	mean volume of auditory feedback (0-10)
 
 # Software
 Matlab R2022a
