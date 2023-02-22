@@ -32,7 +32,7 @@ Information about software dependencies such as toolboxes and computing environm
 
 # Authors and contact
 Christian Paret, ZI Mannheim, christian.paret[at]zi-mannheim.de
-Malte Zopfs, Malte Zopfs
+Malte Zopfs
 
 # Year of creation 
 2022/2023
