@@ -5,7 +5,7 @@
 # Set Working Directory-----------------------------------------
 #################################################################
 
-setwd("Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/questionnaires_and_descriptives/data/") # Set to path where EFP_data.Rda is expected. Alternatively comment out this line and load EFP_data.RdA to workspace.
+setwd("Y:/Projects/EFPTest/Data_analysis/protected_materials_code_data_clinical_study/data/") # Set to path where EFP_data.Rda is expected. Alternatively comment out this line and load EFP_data.RdA to workspace.
 
 #################################################################
 # Loading packages (installs if necessary)
@@ -420,21 +420,21 @@ descriptivesKG <- subset(descriptives, group == 0)
 descriptivesEG <- subset(descriptives, group == 1)
 
 ##Affective
-#affective disorder all completers (Werte größer 1 werden aufsummiert)
+#affective disorder all completers (Werte gr??er 1 werden aufsummiert)
 affective <- table(descriptives$AffectiveDisorder)
 affective
 Affective <- prop.table(affective)
 Affective <- round(Affective, digits=2)
 Affective
 
-#affective disorder KG completers (Werte größer 1 werden aufsummiert)
+#affective disorder KG completers (Werte gr??er 1 werden aufsummiert)
 affectivekg <- table(descriptivesKG$AffectiveDisorder)
 affectivekg
 Affectivekg <- prop.table(affectivekg)
 Affectivekg <- round(Affectivekg, digits=2)
 Affectivekg
 
-#affective disorder EG completers (Werte größer 1 werden aufsummiert)
+#affective disorder EG completers (Werte gr??er 1 werden aufsummiert)
 affectiveeg <- table(descriptivesEG$AffectiveDisorder)
 affectiveeg
 Affectiveeg <- prop.table(affectiveeg)
@@ -443,21 +443,21 @@ Affectiveeg
 
 
 ##Anxiety
-#anxiety disorder all completers (Werte größer 1 werden aufsummiert)
+#anxiety disorder all completers (Werte gr??er 1 werden aufsummiert)
 anxiety <- table(descriptives$AnxietyDisorder)
 anxiety
 Anxiety <- prop.table(anxiety)
 Anxiety <- round(Anxiety, digits=2)
 Anxiety
 
-#anxiety disorder KG completers (Werte größer 1 werden aufsummiert)
+#anxiety disorder KG completers (Werte gr??er 1 werden aufsummiert)
 anxietykg <- table(descriptivesKG$AnxietyDisorder)
 anxietykg
 Anxietykg <- prop.table(anxietykg)
 Anxietykg <- round(Anxietykg, digits=2)
 Anxietykg
 
-#anxiety disorder EG completers (Werte größer 1 werden aufsummiert)
+#anxiety disorder EG completers (Werte gr??er 1 werden aufsummiert)
 anxietyeg <- table(descriptivesEG$AnxietyDisorder)
 anxietyeg
 Anxietyeg <- prop.table(anxietyeg)
@@ -466,21 +466,21 @@ Anxietyeg
 
 
 #Eating
-#eating disorder all completers (Werte größer 1 werden aufsummiert)
+#eating disorder all completers (Werte gr??er 1 werden aufsummiert)
 eating <- table(descriptives$EatingDisorder)
 eating
 Eating <- prop.table(eating)
 Eating <- round(Eating, digits=2)
 Eating
 
-#eating disorder KG completers (Werte größer 1 werden aufsummiert)
+#eating disorder KG completers (Werte gr??er 1 werden aufsummiert)
 eatingkg <- table(descriptivesKG$EatingDisorder)
 eatingkg
 Eatingkg <- prop.table(eatingkg)
 Eatingkg <- round(Eatingkg, digits=2)
 Eatingkg
 
-#eating disorder EG completers (Werte größer 1 werden aufsummiert)
+#eating disorder EG completers (Werte gr??er 1 werden aufsummiert)
 eatingeg <- table(descriptivesEG$EatingDisorder)
 eatingeg
 Eatingeg <- prop.table(eatingeg)
@@ -489,21 +489,21 @@ Eatingeg
 
 
 #PTSD
-#PTSD disorder all completers (Werte größer 1 werden aufsummiert)
+#PTSD disorder all completers (Werte gr??er 1 werden aufsummiert)
 ptbs <- table(descriptives$PTBS)
 ptbs
 Ptbs <- prop.table(ptbs)
 Ptbs <- round(Ptbs, digits=2)
 Ptbs
 
-#ptbs disorder KG completers (Werte größer 1 werden aufsummiert)
+#ptbs disorder KG completers (Werte gr??er 1 werden aufsummiert)
 ptbskg <- table(descriptivesKG$PTBS)
 ptbskg
 Ptbskg <- prop.table(ptbskg)
 Ptbskg <- round(Ptbskg, digits=2)
 Ptbskg
 
-#ptbs disorder EG completers (Werte größer 1 werden aufsummiert)
+#ptbs disorder EG completers (Werte gr??er 1 werden aufsummiert)
 ptbseg <- table(descriptivesEG$PTBS)
 ptbseg
 Ptbseg <- prop.table(ptbseg)
@@ -512,21 +512,21 @@ Ptbseg
 
 
 #other comorbidites
-#other all completers (Werte größer 1 werden aufsummiert)
+#other all completers (Werte gr??er 1 werden aufsummiert)
 other <- table(descriptives$otherComorbidities_all)
 other
 Other <- prop.table(other)
 Other <- round(Other, digits=2)
 Other
 
-#other KG completers (Werte größer 1 werden aufsummiert)
+#other KG completers (Werte gr??er 1 werden aufsummiert)
 otherkg <- table(descriptivesKG$otherComorbidities_all)
 otherkg
 Otherkg <- prop.table(otherkg)
 Otherkg <- round(Otherkg, digits=2)
 Otherkg
 
-#other EG completers (Werte größer 1 werden aufsummiert)
+#other EG completers (Werte gr??er 1 werden aufsummiert)
 othereg <- table(descriptivesEG$otherComorbidities_all)
 othereg
 Othereg <- prop.table(othereg)
@@ -536,21 +536,21 @@ Othereg
 
 ####medication
 #SSRI
-#ssri all completers (Werte größer 1 werden aufsummiert)
+#ssri all completers (Werte gr??er 1 werden aufsummiert)
 ssri <- table(descriptives$SSRI_total)
 ssri
 Ssri <- prop.table(ssri)
 Ssri <- round(Ssri, digits=2)
 Ssri
 
-#ssri KG completers (Werte größer 1 werden aufsummiert)
+#ssri KG completers (Werte gr??er 1 werden aufsummiert)
 ssrikg <- table(descriptivesKG$SSRI_total)
 ssrikg
 Ssrikg <- prop.table(ssrikg)
 Ssrikg <- round(Ssrikg, digits=2)
 Ssrikg
 
-#ssri EG completers (Werte größer 1 werden aufsummiert)
+#ssri EG completers (Werte gr??er 1 werden aufsummiert)
 ssrieg <- table(descriptivesEG$SSRI_total)
 ssrieg
 Ssrieg <- prop.table(ssrieg)
@@ -559,21 +559,21 @@ Ssrieg
 
 
 #Serotonin Antagonist
-#sant all completers (Werte größer 1 werden aufsummiert)
+#sant all completers (Werte gr??er 1 werden aufsummiert)
 sant <- table(descriptives$SerotoninAntagonist_total)
 sant
 Sant <- prop.table(sant)
 Sant <- round(Sant, digits=2)
 Sant
 
-#sant KG completers (Werte größer 1 werden aufsummiert)
+#sant KG completers (Werte gr??er 1 werden aufsummiert)
 santkg <- table(descriptivesKG$SerotoninAntagonist_total)
 santkg
 Santkg <- prop.table(santkg)
 Santkg <- round(Santkg, digits=2)
 Santkg
 
-#sant EG completers (Werte größer 1 werden aufsummiert)
+#sant EG completers (Werte gr??er 1 werden aufsummiert)
 santeg <- table(descriptivesEG$SerotoninAntagonist_total)
 santeg
 Santeg <- prop.table(santeg)
@@ -582,21 +582,21 @@ Santeg
 
 
 #SSNRI
-#ssnri all completers (Werte größer 1 werden aufsummiert)
+#ssnri all completers (Werte gr??er 1 werden aufsummiert)
 ssnri <- table(descriptives$SSNRI_total)
 ssnri
 Ssnri <- prop.table(ssnri)
 Ssnri <- round(Ssnri, digits=2)
 Ssnri
 
-#ssnri KG completers (Werte größer 1 werden aufsummiert)
+#ssnri KG completers (Werte gr??er 1 werden aufsummiert)
 ssnrikg <- table(descriptivesKG$SSNRI_total)
 ssnrikg
 Ssnrikg <- prop.table(ssnrikg)
 Ssnrikg <- round(Ssnrikg, digits=2)
 Ssnrikg
 
-#ssnri EG completers (Werte größer 1 werden aufsummiert)
+#ssnri EG completers (Werte gr??er 1 werden aufsummiert)
 ssnrieg <- table(descriptivesEG$SSNRI_total)
 ssnrieg
 Ssnrieg <- prop.table(ssnrieg)
@@ -605,21 +605,21 @@ Ssnrieg
 
 
 #tetrazyklische Antidepressiva
-#tetraAD all completers (Werte größer 1 werden aufsummiert)
+#tetraAD all completers (Werte gr??er 1 werden aufsummiert)
 tetra <- table(descriptives$tetraAD_total)
 tetra
 Tetra <- prop.table(tetra)
 Tetra <- round(Tetra, digits=2)
 Tetra
 
-#tetra KG completers (Werte größer 1 werden aufsummiert)
+#tetra KG completers (Werte gr??er 1 werden aufsummiert)
 tetrakg <- table(descriptivesKG$tetraAD_total)
 tetrakg
 Tetrakg <- prop.table(tetrakg)
 Tetrakg <- round(Tetrakg, digits=2)
 Tetrakg
 
-#tetra EG completers (Werte größer 1 werden aufsummiert)
+#tetra EG completers (Werte gr??er 1 werden aufsummiert)
 tetraeg <- table(descriptivesEG$tetraAD_total)
 tetraeg
 Tetraeg <- prop.table(tetraeg)
@@ -628,21 +628,21 @@ Tetraeg
 
 
 #trizyklische Antidepressiva
-#triAD all completers (Werte größer 1 werden aufsummiert)
+#triAD all completers (Werte gr??er 1 werden aufsummiert)
 tri <- table(descriptives$triAD_total)
 tri
 Tri <- prop.table(tri)
 Tri <- round(Tri, digits=2)
 Tri
 
-#tri KG completers (Werte größer 1 werden aufsummiert)
+#tri KG completers (Werte gr??er 1 werden aufsummiert)
 trikg <- table(descriptivesKG$triAD_total)
 trikg
 Trikg <- prop.table(trikg)
 Trikg <- round(Trikg, digits=2)
 Trikg
 
-#tri EG completers (Werte größer 1 werden aufsummiert)
+#tri EG completers (Werte gr??er 1 werden aufsummiert)
 trieg <- table(descriptivesEG$triAD_total)
 trieg
 Trieg <- prop.table(trieg)
@@ -651,21 +651,21 @@ Trieg
 
 
 #Conventional Antipsychotica
-#cap all completers (Werte größer 1 werden aufsummiert)
+#cap all completers (Werte gr??er 1 werden aufsummiert)
 cap <- table(descriptives$conventAntiPsy_total)
 cap
 Cap <- prop.table(cap)
 Cap <- round(Cap, digits=2)
 Cap
 
-#cap KG completers (Werte größer 1 werden aufsummiert)
+#cap KG completers (Werte gr??er 1 werden aufsummiert)
 capkg <- table(descriptivesKG$conventAntiPsy_total)
 capkg
 Capkg <- prop.table(capkg)
 Capkg <- round(Capkg, digits=2)
 Capkg
 
-#cap EG completers (Werte größer 1 werden aufsummiert)
+#cap EG completers (Werte gr??er 1 werden aufsummiert)
 capeg <- table(descriptivesEG$conventAntiPsy_total)
 capeg
 Capeg <- prop.table(capeg)
@@ -674,21 +674,21 @@ Capeg
 
 
 #atypical Antipsychotica
-#aap all completers (Werte größer 1 werden aufsummiert)
+#aap all completers (Werte gr??er 1 werden aufsummiert)
 aap <- table(descriptives$atypAntiPsy_total)
 aap
 Aap <- prop.table(aap)
 Aap <- round(Aap, digits=2)
 Aap
 
-#aap KG completers (Werte größer 1 werden aufsummiert)
+#aap KG completers (Werte gr??er 1 werden aufsummiert)
 aapkg <- table(descriptivesKG$atypAntiPsy_total)
 aapkg
 Aapkg <- prop.table(aapkg)
 Aapkg <- round(Aapkg, digits=2)
 Aapkg
 
-#aap EG completers (Werte größer 1 werden aufsummiert)
+#aap EG completers (Werte gr??er 1 werden aufsummiert)
 aapeg <- table(descriptivesEG$atypAntiPsy_total)
 aapeg
 Aapeg <- prop.table(aapeg)
@@ -697,21 +697,21 @@ Aapeg
 
 
 #other Medication
-#otherm all completers (Werte größer 1 werden aufsummiert)
+#otherm all completers (Werte gr??er 1 werden aufsummiert)
 otherm <- table(descriptives$otherMed_total)
 otherm
 Otherm <- prop.table(otherm)
 Otherm <- round(Otherm, digits=2)
 Otherm
 
-#otherm KG completers (Werte größer 1 werden aufsummiert)
+#otherm KG completers (Werte gr??er 1 werden aufsummiert)
 othermkg <- table(descriptivesKG$otherMed_total)
 othermkg
 Othermkg <- prop.table(othermkg)
 Othermkg <- round(Othermkg, digits=2)
 Othermkg
 
-#otherm EG completers (Werte größer 1 werden aufsummiert)
+#otherm EG completers (Werte gr??er 1 werden aufsummiert)
 othermeg <- table(descriptivesEG$otherMed_total)
 othermeg
 Othermeg <- prop.table(othermeg)

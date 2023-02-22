@@ -4,7 +4,7 @@
 #################################################################
 
 #setwd("Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/questionnaires_and_descriptives/data/") # Set to path where EFP_data.Rda is expected. Alternatively comment out this line and load EFP_data.RdA to workspace.
-read.delim("//zi.local/flstorage/dep_psm/group_psm/AG-Paret/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/questionnaires_and_descriptives/data/EFP_data.Rda")
+read.delim("//zi.local/flstorage/dep_psm/group_psm/AG-Paret/Projects/EFPTest/Data_analysis/protected_materials_code_data_clinical_study/data/EFP_data.Rda")
 
 #################################################################
 # Loading packages (installs if necessary)

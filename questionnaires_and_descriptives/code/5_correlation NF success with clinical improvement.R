@@ -1,27 +1,52 @@
 #################################################################
-# Analysis of questionnaire pre-assessment and demographics of EFPTest study
-# Zopfs, Paret, ZI Mannheim, 2023
+# Analysis of correlations of NF success/learning with improvement in clinical measures EFPTest study
+# Paret, ZI Mannheim, 2023
 #################################################################
 # Set Working Directory-----------------------------------------
 #################################################################
 
-setwd("Y:/Projects/EFPTest/Data_analysis/protected_materials_code_data_clinical_study/data")
+setwd("Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/questionnaires_and_descriptives/data")
 
 #################################################################
 # Loading packages (installs if necessary)
 #################################################################
 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse,
-               reshape2,
-               afex,
-               ggpubr,
-               rstatix) 
+# pacman::p_load(tidyverse,
+#              reshape2,
+#             afex,
+#            ggpubr,
+#           rstatix)
+
+# Read and edit data frames -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Neurofeedback training data
+subj_data <- read.delim("Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/trainingsession_analysis/aggregated data/Pooleddata_difference-score_task-efpnftraining.txt")
+
+# Choose completers of experimental group (see CSV "Datenpflege-Log and QC")
+# Subset of completers
+subj_data_completer <- subset(subj_data, SubjectID2=="EFP02" |
+                   SubjectID2=="EFP04"| # completer of training, questionnaire data of post-assessment lost due to technical error
+                   SubjectID2=="EFP05"|
+                   SubjectID2=="EFP07"|
+                   SubjectID2=="EFP10"|
+                   SubjectID2=="EFP11"|
+                   SubjectID2=="EFP12"|
+                   SubjectID2=="EFP14"|
+                   SubjectID2=="EFP15"|
+                   SubjectID2=="EFP17"|
+                   SubjectID2=="EFP18"|
+                   SubjectID2=="EFP19"|
+                   SubjectID2=="EFP23"| # completer of training, no post-scan due to dissociation and technical problem during scanning
+                   SubjectID2=="EFP33"|
+                   SubjectID2=="EFP34")
+
+# Self-report/clinical data
+load("EFP_data.Rda")
+
 
 ###################################################################################################################################################################
-#
 # Preprocessing 
-#
 ###################################################################################################################################################################
 
 #################################################################
@@ -65,7 +90,8 @@ BDIrecoded$pre_BDI_18 <- NULL
 BDIrecoded$post_BDI_16 <- NULL
 BDIrecoded$post_BDI_18 <- NULL
 
-#Sumscores BDI
+#Sumscore BDI
+
 BDIrecoded$pre_BDI_Total <- BDIrecoded %>%
   select(contains('pre_BDI')) %>%
   rowSums()
@@ -73,9 +99,6 @@ BDIrecoded$pre_BDI_Total <- BDIrecoded %>%
 BDIrecoded$post_BDI_Total<- BDIrecoded %>%
   select(contains('post_BDI')) %>%
   rowSums()
-
-#Difference score BDI
-BDIrecoded$BDI_post_vs_pre <- BDIrecoded$post_BDI_Total-BDIrecoded$pre_BDI_Total
 
 #################################################################################
 #ALS
@@ -119,8 +142,6 @@ ALSrecoded$post_ALS_Total <- ALSrecoded %>%
   select(contains('post_ALS_subscale')) %>%
   rowSums()
 
-#Difference score ALS
-ALSrecoded$ALS_Total_post_vs_pre <- ALSrecoded$post_ALS_Total-ALSrecoded$pre_ALS_Total
 
 #################################################################################
 #STAI
@@ -212,18 +233,18 @@ TASrecoded$post_TAS_subscale_descr <- rowSums(subset(TASrecoded, select = c(post
 TASrecoded$pre_TAS_subscale_thnkng <- rowSums(subset(TASrecoded, select = c(pre_TAS_09, pre_TAS_11, pre_TAS_13, pre_TAS_15, pre_TAS_21, pre_TAS_24))) 
 TASrecoded$post_TAS_subscale_thnkng <- rowSums(subset(TASrecoded, select = c(post_TAS_09, post_TAS_11, post_TAS_13, post_TAS_15, post_TAS_21, post_TAS_24))) 
 
-#TAS total pre
+#TAS total sum score 
+
 TASrecoded$pre_TAS_Total <- TASrecoded %>%
   select(contains('pre_TAS_subscale')) %>%
   rowSums()
 
 #TAS Total post 
+
 TASrecoded$post_TAS_Total <- TASrecoded %>%
   select(contains('post_TAS_subscale')) %>%
   rowSums()
 
-#Difference score TAS
-TASrecoded$TAS_Total_post_vs_pre <- TASrecoded$post_TAS_Total-TASrecoded$pre_TAS_Total
 
 ################################################################################
 #Construct dataframes for following analyses 
@@ -239,25 +260,6 @@ Data1$Condition <- as.factor(Data1$Condition)
 Data1 <- dplyr::rename(Data1, Probanden_ID = 'EFP_data$Probanden_ID')
 Data1 <- dplyr::rename(Data1, Group = 'EFP_data$group')
 
-selfreport_completer <- subset(Data1,select=c (Probanden_ID,
-                                               ALS_Total_post_vs_pre,
-                                               BDI_post_vs_pre,
-                                               TAS_Total_post_vs_pre),
-                                 Probanden_ID=="EFP02" |
-                                 Probanden_ID=="EFP04"| # completer of training, questionnaire data of post-assessment lost due to technical error
-                                 Probanden_ID=="EFP05"|
-                                 Probanden_ID=="EFP07"|
-                                 Probanden_ID=="EFP10"|
-                                 Probanden_ID=="EFP11"|
-                                 Probanden_ID=="EFP12"|
-                                 Probanden_ID=="EFP14"|
-                                 Probanden_ID=="EFP15"|
-                                 Probanden_ID=="EFP17"|
-                                 Probanden_ID=="EFP18"|
-                                 Probanden_ID=="EFP19"|
-                                 Probanden_ID=="EFP23"| # completer of training, no post-scan due to dissociation and technical problem during scanning
-                                 Probanden_ID=="EFP33"|
-                                 Probanden_ID=="EFP34")
 
 ###################################################################################################################################################################
 #
@@ -693,141 +695,6 @@ get_anova_table(BDIAnova)
 # 3 group:time 1, 23  48.77    2.87     .024    .104
 # ---
 #   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
-
-
-#################################################################
-# Correlation analysis: NF learning and change in self-report
-#################################################################
-
-# Neurofeedback training data
-nf <- read.delim("Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/trainingsession_analysis/aggregated data/Pooleddata_difference-score_task-efpnftraining.txt")
-
-# Choose completers of experimental group (see CSV "Datenpflege-Log and QC")
-# Subset of completers
-nf_completer <- subset(nf_data, SubjectID2=="EFP02" |
-                                    SubjectID2=="EFP04"| # completer of training, questionnaire data of post-assessment lost due to technical error
-                                    SubjectID2=="EFP05"|
-                                    SubjectID2=="EFP07"|
-                                    SubjectID2=="EFP10"|
-                                    SubjectID2=="EFP11"|
-                                    SubjectID2=="EFP12"|
-                                    SubjectID2=="EFP14"|
-                                    SubjectID2=="EFP15"|
-                                    SubjectID2=="EFP17"|
-                                    SubjectID2=="EFP18"|
-                                    SubjectID2=="EFP19"|
-                                    SubjectID2=="EFP23"| # completer of training, no post-scan due to dissociation and technical problem during scanning
-                                    SubjectID2=="EFP33"|
-                                    SubjectID2=="EFP34")
-
-selfreport_and_nf_completer <- cbind(selfreport_completer,nf_completer)
-
-# ALS
-ggscatter(selfreport_and_nf_completer, x = "pes_final_vs_initial", y = "ALS_Total_post_vs_pre", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Neurofeedback improvement (PES, sessions: final vs. initial)", ylab = "Change in affective lability (ALS, post vs. pre)")
-
-cor(selfreport_and_nf_completer$pes_final_vs_initial,selfreport_and_nf_completer$ALS_Total_post_vs_pre,use = "complete.obs")
-# Result:
-# [1] 0.2745717
-
-# ggscatter(selfreport_and_nf_completer, x = "pes_last_vs_first", y = "ALS_Total_post_vs_pre",
-#           add = "reg.line", conf.int = TRUE,
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (PES, sessions: last vs. first)", ylab = "Change in affective lability (ALS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "cles_final_vs_initial", y = "ALS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (CLES, sessions: final vs. initial)", ylab = "Change in affective lability (ALS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "cles_last_vs_first", y = "ALS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (CLES, sessions: last vs. first)", ylab = "Change in affective lability (ALS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "mean_vol_final_vs_initial", y = "ALS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (vol., sessions: final vs. initial)", ylab = "Change in affective lability (ALS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "mean_vol_last_vs_first", y = "ALS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (vol., sessions: last vs. first)", ylab = "Change in affective lability (ALS, post vs. pre)")
-
-# BDI
-ggscatter(selfreport_and_nf_completer, x = "pes_final_vs_initial", y = "BDI_post_vs_pre", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Neurofeedback improvement (PES, sessions: final vs. initial)", ylab = "Change in depression (BDI, post vs. pre)")
-
-cor(selfreport_and_nf_completer$pes_final_vs_initial,selfreport_and_nf_completer$BDI_post_vs_pre,use = "complete.obs")
-# Result:
-# [1] 0.2361269
-
-# ggscatter(selfreport_and_nf_completer, x = "pes_last_vs_first", y = "BDI_post_vs_pre",
-#           add = "reg.line", conf.int = TRUE,
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (PES, sessions: last vs. first)", ylab = "Change in depression (BDI, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "cles_final_vs_initial", y = "BDI_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (CLES, sessions: final vs. initial)", ylab = "Change in depression (BDI, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "cles_last_vs_first", y = "BDI_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (CLES, sessions: last vs. first)", ylab = "Change in depression (BDI, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "mean_vol_final_vs_initial", y = "BDI_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (vol., sessions: final vs. initial)", ylab = "Change in depression (BDI, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "mean_vol_last_vs_first", y = "BDI_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (vol., sessions: last vs. first)", ylab = "Change in depression (BDI, post vs. pre)")
-
-# TAS
-ggscatter(selfreport_and_nf_completer, x = "pes_final_vs_initial", y = "TAS_Total_post_vs_pre", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Neurofeedback improvement (PES, sessions: final vs. initial)", ylab = "Change in alexithymia (TAS, post vs. pre)")
-
-cor(selfreport_and_nf_completer$pes_final_vs_initial,selfreport_and_nf_completer$TAS_Total_post_vs_pre,use = "complete.obs")
-# Result:
-# [1] 0.06500223
-
-# ggscatter(selfreport_and_nf_completer, x = "pes_last_vs_first", y = "TAS_Total_post_vs_pre",
-#           add = "reg.line", conf.int = TRUE,
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (PES, sessions: last vs. first)", ylab = "Change in alexithymia (TAS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "cles_final_vs_initial", y = "TAS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (CLES, sessions: final vs. initial)", ylab = "Change in alexithymia (TAS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "cles_last_vs_first", y = "TAS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (CLES, sessions: last vs. first)", ylab = "Change in alexithymia (TAS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "mean_vol_final_vs_initial", y = "TAS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (vol., sessions: final vs. initial)", ylab = "Change in alexithymia (TAS, post vs. pre)")
-# 
-# ggscatter(selfreport_and_nf_completer, x = "mean_vol_last_vs_first", y = "TAS_Total_post_vs_pre", 
-#           add = "reg.line", conf.int = TRUE, 
-#           cor.coef = TRUE, cor.method = "pearson",
-#           xlab = "Neurofeedback improvement (vol., sessions: last vs. first)", ylab = "Change in alexithymia (TAS, post vs. pre)")
-
-
 
 ################################################################################
 #sessionInfo()
