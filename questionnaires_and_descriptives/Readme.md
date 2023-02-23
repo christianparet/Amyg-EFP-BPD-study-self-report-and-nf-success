@@ -11,6 +11,7 @@ Data and analysis code of clinical and psychological outcome measures that were 
   - 3_comparison pre to post.R Analysis of differences between pre- and post-assessment of questionnaire data/clinical outcome measures
     - Preprocessing (see above)
     - Statistical comparisons of differences between group and measurement timepoints
+    - Correlation analysis of clinical self-report measures with neurofeedback success measures
 # Data dictionary
 
 ## Questionnaires:
