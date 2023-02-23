@@ -13,7 +13,7 @@ pacman::p_load(tidyverse,
                rstatix)
 
 ### set the working directory and importing the data ###
-setwd('Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/trainingsession_analysis/aggregated data')
+setwd('Y:/Projects/EFPTest/Data_analysis/protected_materials_code_data_clinical_study/data')
 session_avg <-
   read.table(
     'Pooleddata_blockwise_task-efpnftraining.txt',

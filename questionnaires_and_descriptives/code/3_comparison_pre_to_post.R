@@ -700,7 +700,7 @@ get_anova_table(BDIAnova)
 #################################################################
 
 # Neurofeedback training data
-nf <- read.delim("Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/trainingsession_analysis/aggregated data/Pooleddata_difference-score_task-efpnftraining.txt")
+nf <- read.delim("Y:/Projects/EFPTest/Data_analysis/protected_materials_code_data_clinical_study/data/Pooleddata_difference-score_task-efpnftraining.txt")
 
 # Choose completers of experimental group (see CSV "Datenpflege-Log and QC")
 # Subset of completers

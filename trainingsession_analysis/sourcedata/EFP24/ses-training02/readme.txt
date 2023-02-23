@@ -1,1 +1,0 @@
-Subject dropped out during session.

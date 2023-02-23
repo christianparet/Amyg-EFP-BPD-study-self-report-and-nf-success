@@ -17,7 +17,7 @@ pacman::p_load(tidyverse,
 # Read and edit data frame -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # EFP NF training data
-EFP_3L_all <- read.delim("Y:/Projects/EFPTest/Data_analysis/open_materials_code_data_clinical_study/trainingsession_analysis/aggregated data/Pooleddata_blockwise_task-efpnftraining.txt")
+EFP_3L_all <- read.delim("Y:/Projects/EFPTest/Data_analysis/protected_materials_code_data_clinical_study/data/Pooleddata_blockwise_task-efpnftraining.txt")
 
 # Rename variables
 # EFP_3L_all$subjectID <- EFP_3L_all$SubjectID
