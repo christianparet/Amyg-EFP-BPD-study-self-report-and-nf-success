@@ -5,10 +5,10 @@ Data and analysis code of clinical and psychological outcome measures that were 
 ## File structure
 1) this Readme file with an overview of project and content
 2) code directory:
-  2.1) 2_descriptives pre.R: Analysis of pre-assessment demographic, descriptive and questionnaire data
+  - 2_descriptives pre.R: Analysis of pre-assessment demographic, descriptive and questionnaire data
     - Preprocessing of questionnaire data: aggregation, recoding of inversely coded items, building total and subscale scores
     - Statistical comparison of treatment and control group on sample characteristics (including clinical data and medication)
-  2.2) 3_comparison pre to post.R Analysis of differences between pre- and post-assessment of questionnaire data/clinical outcome measures
+  - 3_comparison pre to post.R Analysis of differences between pre- and post-assessment of questionnaire data/clinical outcome measures
     - Preprocessing (see above)
     - Statistical comparisons of differences between group and measurement timepoints
 # Data dictionary
