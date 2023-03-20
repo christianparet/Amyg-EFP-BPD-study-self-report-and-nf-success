@@ -1,10 +1,5 @@
-### the goal of this script is to get means and sd of each completing participant's NF-training sessions.
-### Namely of the variables: personal effect size, success index, neurofeedback mean and baseline mean
-
-# Internal note to authors from CP, 01.07.2022
-# clean code for figures
-# add comments, e.g. to explain what the grey shading stands for (sd?)
-#
+# Produce Figure of NF training success
+# Christian Paret, ZI Mannheim, 2023
 
 if (!require("pacman"))
   install.packages("pacman")
@@ -195,17 +190,17 @@ graphs_mean_nf <-
 #spaghetti plot (subject colors, limited and even-numbered x-axis)
 graphs_mean_nf + geom_line(aes(colour = SubjectID)) + coord_cartesian(xlim = c(1, 10)) + scale_x_continuous(breaks =
                                                                                                               c(2, 4, 6, 8, 10))
-# spaghetti plot (subject colors, limited and even-numbered x-axis) + group mean plotted with regression line and standard error shading
+# mean plot (subject colors, limited and even-numbered x-axis) + group mean plotted with regression line and standard error shading
 graphs_mean_nf  + coord_cartesian(xlim = c(1, 10)) + stat_smooth(aes(group = 1)) + stat_summary(
   aes(group = 1),
   geom = "point",
   fun = mean,
-  shape = 17,
+  shape = 1,
   size = 2) +
   scale_x_continuous(breaks = c(2, 4, 6, 8, 10))+
-  ylab("Session mean NF")+
+  ylab("Feedback music volume (1=max. volume)")+
   xlab("Session")+
-  theme(axis.text=element_text(size=12),
+  theme(axis.text=element_text(size=10),
         axis.title=element_text(size=12))+
   theme(
     # Remove panel border
@@ -216,7 +211,8 @@ graphs_mean_nf  + coord_cartesian(xlim = c(1, 10)) + stat_smooth(aes(group = 1))
     # Remove panel background
     panel.background = element_blank(),
     # Add axis line
-    axis.line = element_line(colour = "grey"))
+    axis.line = element_line(colour = "grey")
+    )
 
 # ##plotted variable: mean baseline -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 # graphs_mean_bl <-

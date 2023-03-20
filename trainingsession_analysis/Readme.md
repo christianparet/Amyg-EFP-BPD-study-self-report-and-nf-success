@@ -39,7 +39,7 @@ mean_vol_neurofeedback:	mean volume of auditory feedback (0-10)
 # Software
 Matlab R2022a
 
-R version 4.2.1
+R version 4.2.2
 
 Information about software dependencies such as toolboxes and computing environments for R-based analysis scripts is available from session_info output, which has been copy-pasted at the end of the script.
 
