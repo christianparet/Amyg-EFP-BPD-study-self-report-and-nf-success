@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/601558930.svg)](https://zenodo.org/badge/latestdoi/601558930)
 # Welcome
 Thank you for visiting this project page. Great, that you are interested to learn more about this research.
 This github repository is authored by Christian Paret and Malte Zopfs, Central Institute of Mental Health in Mannheim, Germany.
